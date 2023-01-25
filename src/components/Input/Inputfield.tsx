@@ -14,11 +14,6 @@ interface IFormInput {
 
 export default function Inputfield() {
 
-
-  // const [rowsInput, setRowsInput] = useState<string | number>('')
-  // const [columnsInput, setColumnsInput] = useState<string | number>('')
-  
-
   const {
     matrix,
     actions
@@ -51,9 +46,7 @@ export default function Inputfield() {
       reset()
     }
     
-    // setColumnsInput(data.columnsInput)
-    // setRowsInput(data.rowsInput)
-    console.log(data)
+    // console.log(data)
   }
   
 

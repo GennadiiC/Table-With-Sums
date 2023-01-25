@@ -20,11 +20,7 @@ import { useCalculateAverage } from './useCalculateAverage';
 
 export default function CustomTable () {
 
-  const { matrix, columnsValue } = useContext(MatrixContext)
-
-  // const average = (id: string) => useCalculateAverage(id)
-
-  // console.log(average(`col${3}`))
+  const { matrix, columnsValue, actions } = useContext(MatrixContext)
 
   // console.log(matrix)
 
@@ -69,7 +65,7 @@ export default function CustomTable () {
                   }
                   <TableCell align="center">{row.total}</TableCell>
                   <TableCell align="center">
-                    <IconButton>
+                    <IconButton onClick={() => actions.deleteRowHandler(row.id)}>
                       <DeleteIcon />
                     </IconButton>
                   </TableCell>

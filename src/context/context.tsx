@@ -7,6 +7,7 @@ type actions = {
   setColumnsValue: React.Dispatch<React.SetStateAction<number>>
   generateRandomArr: (rows: number, columns: number) => void
   addRowHandler: () => void
+  deleteRowHandler: (id: number) => void
 }
 
 interface MatrixContextType {
@@ -17,7 +18,6 @@ interface MatrixContextType {
 }
 
 type Props = { children: React.ReactNode }
-
 
 export type Cell = {
   id: string 
@@ -81,6 +81,13 @@ export const Provider = ({ children }: Props) => {
     setRowsValue(prev => prev += 1)
   }
 
+  const deleteRowHandler = (id: number) => {
+    setMatrix(prev => {
+      return prev.filter(row => row.id !== id)
+    })
+    setRowsValue(prev => prev -= 1)
+  }
+
 
   return (
     <MatrixContext.Provider 
@@ -92,7 +99,8 @@ export const Provider = ({ children }: Props) => {
           setColumnsValue,
           setRowsValue,
           generateRandomArr,
-          addRowHandler
+          addRowHandler,
+          deleteRowHandler
         }
       }}
     >
