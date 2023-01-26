@@ -15,9 +15,9 @@ export const useCalculateAverage = (id: string): number => {
         let target = currEl.array.find((cell: Cell): boolean => cell.id.includes(id))
         return target!.amount + acc
       }, 0)
-      setAverage(total)
+      setAverage(Number((total / rowsValue).toFixed(2)))
     }
   }, [rowsValue, matrix])
   
-  return Number((average / rowsValue).toFixed(2))
+  return average
 }

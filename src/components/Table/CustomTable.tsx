@@ -12,7 +12,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import DoNotTouchIcon from '@mui/icons-material/DoNotTouch';
 import Paper from '@mui/material/Paper';
 import CircleIcon from '@mui/icons-material/Circle';
-import { rows } from './logic'
 import { useContext } from 'react'
 import { MatrixContext } from '../../context/context';
 import { useCalculateAverage } from './useCalculateAverage';
@@ -22,7 +21,7 @@ export default function CustomTable () {
 
   const { matrix, columnsValue, actions } = useContext(MatrixContext)
 
-  // console.log(matrix)
+  console.log(matrix)
 
   return (
     <Container fixed>
@@ -57,7 +56,9 @@ export default function CustomTable () {
                   {
                     row.array.map((ob, i) => 
                     <TableCell key={i} align="center">
-                      <Button>
+                      <Button
+                        onClick={() => actions.incrementer(row.id, ob.id)}
+                      >
                         {ob.amount}
                       </Button>
                     </TableCell>
