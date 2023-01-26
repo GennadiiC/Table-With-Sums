@@ -12,7 +12,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import DoNotTouchIcon from '@mui/icons-material/DoNotTouch';
 import Paper from '@mui/material/Paper';
 import CircleIcon from '@mui/icons-material/Circle';
-import { useContext } from 'react'
+import DynamicRow from './DynamicRow';
+import { useContext, useState } from 'react'
 import { MatrixContext } from '../../context/context';
 import { useCalculateAverage } from './useCalculateAverage';
 
@@ -46,31 +47,11 @@ export default function CustomTable () {
           <TableBody>
             {
               matrix.map((row, index) => 
-                <TableRow
-                  key={index}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <TableCell  scope="row">
-                    Cell Values row {index + 1}
-                  </TableCell>
-                  {
-                    row.array.map((ob, i) => 
-                    <TableCell key={i} align="center">
-                      <Button
-                        onClick={() => actions.incrementer(row.id, ob.id)}
-                      >
-                        {ob.amount}
-                      </Button>
-                    </TableCell>
-                    )
-                  }
-                  <TableCell align="center">{row.total}</TableCell>
-                  <TableCell align="center">
-                    <IconButton onClick={() => actions.deleteRowHandler(row.id)}>
-                      <DeleteIcon />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
+                <DynamicRow 
+                  key={row.id}
+                  row={row}
+                  index={index}
+                />
               )
             }
             <TableRow
