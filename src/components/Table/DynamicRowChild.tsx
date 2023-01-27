@@ -7,7 +7,6 @@ import { MatrixContext } from '../../context/context';
 import { Row, Cell } from '../../context/context'
 
 interface ICellProps {
-  i: number
   row: Row
   ob: Cell
   hovered: boolean
@@ -16,7 +15,6 @@ interface ICellProps {
 export default function DynamicRowChild(props: ICellProps) {
 
   const {
-    i,
     row,
     ob,
     hovered
@@ -29,7 +27,6 @@ export default function DynamicRowChild(props: ICellProps) {
   return (
     <>
       <TableCell
-        key={i} 
         align="center" 
         id={ob.id} 
         sx={{

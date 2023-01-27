@@ -3,10 +3,9 @@ import TableRow from '@mui/material/TableRow'
 import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Button from '@mui/material/Button';
 import DynamicRowChild from './DynamicRowChild';
 import { Row } from '../../context/context'
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState } from 'react'
 import { MatrixContext } from '../../context/context';
 import { blueGrey } from '@mui/material/colors'
 
@@ -24,7 +23,7 @@ export default function DynamicRowParent(props: IProps) {
     index,
   } = props
 
-  const { nearest, actions } = useContext(MatrixContext)
+  const { actions } = useContext(MatrixContext)
 
   const [hovered, setHovered] = useState<boolean>(false)
   
@@ -45,10 +44,9 @@ export default function DynamicRowParent(props: IProps) {
           Cell Values row {index + 1}
         </TableCell>
         {
-          row.array.map((ob, i) => 
+          row.array.map((ob) => 
             <DynamicRowChild
               key={ob.id} 
-              i={i}
               row={row}
               ob={ob}
               hovered={hovered}

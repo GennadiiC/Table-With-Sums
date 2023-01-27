@@ -45,8 +45,6 @@ export default function Inputfield() {
       actions.generateRandomArr(Number(data.rowsInput), Number(data.columnsInput))
       reset()
     }
-    
-    // console.log(data)
   }
   
 
@@ -58,7 +56,7 @@ export default function Inputfield() {
         sx={{
           m: 3,
           display: 'flex',
-          justifyContent: 'center',
+          justifyContent: 'center'
         }}
         onSubmit={handleSubmit(onSubmit)}
       >
@@ -92,13 +90,19 @@ export default function Inputfield() {
             />
           }
         />
-        <TextField type='submit' value='Submit' />
+        <TextField
+          type='submit' 
+          value='Submit' 
+          sx={{
+            color: 'darkgrey'
+          }} 
+        />
       </Box>
       <Box
         sx={{
           display: 'flex',
           justifyContent: 'center',
-          p: 3
+          pb: 3
         }}
       >
         {

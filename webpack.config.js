@@ -2,6 +2,7 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+
 module.exports = {
   mode: 'development',
   entry: './src/main.tsx',
@@ -26,10 +27,18 @@ module.exports = {
         use: 'ts-loader',
         exclude: /node_modules/,
       },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          "style-loader",
+          "css-loader",
+          "sass-loader",
+        ],
+      },
     ]
   },
   resolve: {
-    extensions: ['.jsx', '.ts', '.js', '.tsx'],
+    extensions: ['.jsx', '.ts', '.js', '.tsx', '.scss'],
   },
   plugins:[
     new HtmlWebpackPlugin({

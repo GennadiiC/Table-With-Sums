@@ -5,11 +5,10 @@ import Container from '@mui/material/Container'
 import { useContext } from 'react'
 import { MatrixContext } from './context/context';
 
+
 export default function App() {
 
   const { rowsValue, columnsValue} = useContext(MatrixContext)
-
-  // console.log(rowsValue, columnsValue)
 
   return (
     <Container>
