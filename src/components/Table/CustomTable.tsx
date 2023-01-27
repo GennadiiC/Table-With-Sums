@@ -12,7 +12,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import DoNotTouchIcon from '@mui/icons-material/DoNotTouch';
 import Paper from '@mui/material/Paper';
 import CircleIcon from '@mui/icons-material/Circle';
-import DynamicRow from './DynamicRow';
+import DynamicRowParent from './DynamicRowParent';
 import { useContext, useState } from 'react'
 import { MatrixContext } from '../../context/context';
 import { useCalculateAverage } from './useCalculateAverage';
@@ -20,10 +20,8 @@ import { useCalculateAverage } from './useCalculateAverage';
 
 export default function CustomTable () {
 
-  const { matrix, columnsValue, actions } = useContext(MatrixContext)
-
-  console.log(matrix)
-
+  const { matrix, columnsValue } = useContext(MatrixContext)
+  
   return (
     <Container fixed>
       <TableContainer
@@ -47,7 +45,7 @@ export default function CustomTable () {
           <TableBody>
             {
               matrix.map((row, index) => 
-                <DynamicRow 
+                <DynamicRowParent 
                   key={row.id}
                   row={row}
                   index={index}

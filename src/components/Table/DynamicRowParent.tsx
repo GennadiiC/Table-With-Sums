@@ -4,10 +4,11 @@ import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
+import DynamicRowChild from './DynamicRowChild';
 import { Row } from '../../context/context'
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { MatrixContext } from '../../context/context';
-import { blueGrey, grey } from '@mui/material/colors'
+import { blueGrey } from '@mui/material/colors'
 
 
 interface IProps {
@@ -16,17 +17,17 @@ interface IProps {
 }
 
 
-export default function DynamicRow(props: IProps) {
+export default function DynamicRowParent(props: IProps) {
 
   const {
     row,
     index,
   } = props
 
-  const { actions } = useContext(MatrixContext)
+  const { nearest, actions } = useContext(MatrixContext)
 
   const [hovered, setHovered] = useState<boolean>(false)
-
+  
 
   return (
     <>
@@ -45,15 +46,13 @@ export default function DynamicRow(props: IProps) {
         </TableCell>
         {
           row.array.map((ob, i) => 
-          <TableCell key={i} align="center">
-            <Button
-              onClick={() => actions.incrementer(row.id, ob.id)}
-              color='success'
-            >
-              {!hovered && ob.amount}
-              {hovered && `${ob.percentage} %`}
-            </Button>
-          </TableCell>
+            <DynamicRowChild
+              key={ob.id} 
+              i={i}
+              row={row}
+              ob={ob}
+              hovered={hovered}
+            />
           )
         }
         <TableCell 

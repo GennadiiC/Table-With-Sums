@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { useState } from 'react'
+import { blueGrey } from '@mui/material/colors'
 var _ = require('lodash')
+
 
 type actions = {
   setRowsValue: React.Dispatch<React.SetStateAction<number>>
@@ -8,15 +10,17 @@ type actions = {
   generateRandomArr: (rows: number, columns: number) => void
   addRowHandler: () => void
   deleteRowHandler: (id: number) => void
-  // incrementer: (e: React.MouseEvent<HTMLElement>) => void
   incrementer: (rowId: number, cellId: string) => void
+  nearestAmounts: (ob: Cell, e: React.MouseEvent) => void
 }
 
 interface MatrixContextType {
   rowsValue: number
   columnsValue: number
   matrix: Row[]
+  nearest: string[] | null
   actions: actions
+  
 }
 
 type Props = { children: React.ReactNode }
@@ -40,6 +44,8 @@ export const Provider = ({ children }: Props) => {
   const [rowsValue, setRowsValue] = useState<number>(0)
   const [columnsValue, setColumnsValue] = useState<number>(0)
   const [matrix, setMatrix] = useState<Array<Row>>([])
+  const [nearest, setNearest] = useState<Array<string> | null>(null)
+
 
   const generateRandomArr = (rows: number, columns: number) => {
 
@@ -103,9 +109,8 @@ export const Provider = ({ children }: Props) => {
 
 
   const incrementer = (rowId: number, cellId: string) => {
-    
-    setMatrix((prev) => {
 
+    setMatrix((prev) => {
       let targetRow: Row | undefined = 
         prev.find<Row>((row): row is Row => row.id === rowId)
       let targetCell: Cell | undefined = 
@@ -119,6 +124,29 @@ export const Provider = ({ children }: Props) => {
         
       return [...prev]
     })
+
+  }
+
+
+  const nearestAmounts = (ob: Cell, e: React.MouseEvent) => {
+    if (e.type === 'mouseenter' || e.type === 'click') {
+      let amount = ob.amount
+      let arrayed = matrix.map(row => row.array).flat()
+      let closest = []
+      for (let i = 0; i < (rowsValue + columnsValue); i++) {
+        let closestCell = arrayed.reduce((prev, next) => {
+          return Math.abs(next.amount - amount) < Math.abs(prev.amount - amount) ? next : prev
+        })
+        closest.push(closestCell)
+        arrayed = arrayed.filter(cell => cell.id !== closestCell.id)
+      }
+    
+      closest = closest.map(cell => cell.id)
+      setNearest(closest)
+    } else {
+      setNearest(null)
+    }
+    
   }
 
 
@@ -128,13 +156,15 @@ export const Provider = ({ children }: Props) => {
         rowsValue,
         columnsValue,
         matrix,
+        nearest,
         actions: {
           setColumnsValue,
           setRowsValue,
           generateRandomArr,
           addRowHandler,
           deleteRowHandler,
-          incrementer
+          incrementer,
+          nearestAmounts
         }
       }}
     >
