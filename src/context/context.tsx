@@ -133,7 +133,7 @@ export const Provider = ({ children }: Props) => {
       let amount = ob.amount
       let arrayed = matrix.map(row => row.array).flat()
       let closest = []
-      for (let i = 0; i < (rowsValue + columnsValue); i++) {
+      for (let i = 0; i < (rowsValue + columnsValue) / 2 + 1; i++) {
         let closestCell = arrayed.reduce((prev, next) => {
           return Math.abs(next.amount - amount) < Math.abs(prev.amount - amount) ? next : prev
         })
